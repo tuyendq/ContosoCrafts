@@ -13,15 +13,15 @@ public class IndexModel : PageModel
      JsonFileProductService productService)
     {
         _logger = logger;
-            ProductService = productService;
+        ProductService = productService;
 
     }
 
     public JsonFileProductService ProductService { get; }
-public IEnumerable<Product> Products { get; private set; }
+    public IEnumerable<Product> Products { get; private set; }
 
     public void OnGet()
     {
-    Products = ProductService.GetProducts();
+        Products = ProductService.GetProducts();
     }
 }
