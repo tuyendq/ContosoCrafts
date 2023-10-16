@@ -1,3 +1,5 @@
+using System.Text.Json;
+using ContosoCrafts.Website.Models;
 using ContosoCrafts.Website.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,5 +26,13 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+app.MapGet("/hello", () => "Hello MapGet in .NET Core 7!");
+
+app.MapGet("/products", (context) => {
+    var products = app.Services.GetRequiredService<JsonFileProductService>().GetProducts();
+    var json = JsonSerializer.Serialize<IEnumerable<Product>>(products);
+    return context.Response.WriteAsync(json);
+});
 
 app.Run();
